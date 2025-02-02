@@ -47,7 +47,9 @@ export default function PhotoUpload({ onUploadComplete }: PhotoUploadProps) {
           <p className="mb-4">
             {"Drag 'n' drop some files here, or click to select files"}
           </p>
-          <Button type="button">Select Files</Button>
+          <Button className="bg-black shadow-sm shadow-white" type="button">
+            Select Files
+          </Button>
         </div>
       )}
     </div>
