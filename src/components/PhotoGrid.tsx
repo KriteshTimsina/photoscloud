@@ -1,35 +1,36 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { useState, useEffect } from "react"
-
-// This is a mock function. In a real app, you'd fetch this data from your backend.
-const fetchPhotos = async () => {
-  // Simulating an API call
-  await new Promise((resolve) => setTimeout(resolve, 1000))
-  return [
-    "/placeholder.svg?height=300&width=300",
-    "/placeholder.svg?height=300&width=300",
-    "/placeholder.svg?height=300&width=300",
-    // Add more placeholder images as needed
-  ]
-}
+import type { StaticImageData } from "next/image";
+import { useState } from "react";
+import container from "@/assets/images/container.png";
+import flyer from "@/assets/images/flyer-portrait.jpg";
+import Image from "next/image";
+import { usePhotoUpload } from "@/context/PhotosContext";
 
 export default function PhotoGrid() {
-  const [photos, setPhotos] = useState<string[]>([])
+  const [photos, setPhotos] = useState<StaticImageData[]>([
+    container,
+    flyer,
+    container,
+  ]);
 
-  useEffect(() => {
-    fetchPhotos().then(setPhotos)
-  }, [])
+  const { images } = usePhotoUpload();
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {photos.map((photo, index) => (
-        <div key={index} className="aspect-square relative overflow-hidden rounded-lg shadow-md">
-          <Image src={photo || "/placeholder.svg"} alt={`Photo ${index + 1}`} layout="fill" objectFit="cover" />
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {images.map((photo, index) => (
+        <div
+          key={index}
+          className="relative aspect-square overflow-hidden rounded-lg shadow-md"
+        >
+          <Image
+            src={photo ?? ""}
+            alt={`Photo ${index + 1}`}
+            layout="fill"
+            objectFit="cover"
+          />
         </div>
       ))}
     </div>
-  )
+  );
 }
-
