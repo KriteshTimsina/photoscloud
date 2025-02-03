@@ -17,10 +17,18 @@ export const uploadPhotos = async () => {
   revalidatePath("/photos");
 };
 
-export const deletePhoto = async (id: number) => {
+export const deletePhoto = async (id: string) => {
   await db.delete(photosSchema).where(eq(photosSchema.id, id));
 
   revalidatePath("/photos");
+};
+
+export const getPhotoById = async (id: string) => {
+  const data = await db
+    .select()
+    .from(photosSchema)
+    .where(eq(photosSchema.id, id));
+  return data[0];
 };
 
 // export const toggleTodo = async (id: number) => {

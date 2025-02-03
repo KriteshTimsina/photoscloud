@@ -5,7 +5,6 @@ import { getPhotos } from "@/actions/photoActions";
 
 export default async function Photos() {
   const photos = await getPhotos();
-  console.log(photos, "YAYYYYY");
   return (
     <div className="container mx-auto p-4">
       <div className="flex items-center justify-between">
