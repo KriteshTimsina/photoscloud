@@ -10,6 +10,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { deletePhoto } from "@/actions/photoActions";
 
 interface ImageModalProps {
   photo: { id: number; url: string };
@@ -37,8 +38,9 @@ export default function ImageModal({
     // TODO: Implement details functionality
   };
 
-  const handleDelete = () => {
-    // TODO: Implement delete functionality
+  const handleDelete = async () => {
+    await deletePhoto(photo.id);
+    onClose();
   };
 
   return (

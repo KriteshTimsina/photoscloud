@@ -1,6 +1,7 @@
 "use server";
 import { db } from "@/server/db";
 import { photosSchema } from "@/server/db/schema";
+import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 export const getPhotos = async () => {
@@ -16,11 +17,11 @@ export const uploadPhotos = async () => {
   revalidatePath("/photos");
 };
 
-// export const deleteTodo = async (id: number) => {
-//   await db.delete(todo).where(eq(todo.id, id));
+export const deletePhoto = async (id: number) => {
+  await db.delete(photosSchema).where(eq(photosSchema.id, id));
 
-//   revalidatePath("/");
-// };
+  revalidatePath("/photos");
+};
 
 // export const toggleTodo = async (id: number) => {
 //   await db

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import type { IPhotos } from "@/server/db/schema";
 import ImageModal from "@/components/ImageModal";
+import UploadDropzone from "@/components/UploadDropzone";
 
 export default function PhotoGrid({ photos }: { photos: IPhotos[] }) {
   const [selectedPhoto, setSelectedPhoto] = useState<IPhotos | null>(null);
@@ -15,6 +16,16 @@ export default function PhotoGrid({ photos }: { photos: IPhotos[] }) {
   const handleCloseModal = () => {
     setSelectedPhoto(null);
   };
+
+  if (photos.length === 0) {
+    return (
+      <UploadDropzone
+        onUpload={() => {
+          console.log("UPloaded");
+        }}
+      />
+    );
+  }
 
   return (
     <>
