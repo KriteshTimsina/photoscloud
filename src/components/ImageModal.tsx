@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { X, Heart, ZoomIn, Info, Trash2, ArrowLeft } from "lucide-react";
+import { Heart, ZoomIn, Info, Trash2, ArrowLeft } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -11,19 +11,17 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { deletePhoto } from "@/actions/photoActions";
+import type { IPhoto } from "@/server/db/schema";
+import { useRouter } from "next/navigation";
 
 interface ImageModalProps {
-  photo: { id: number; url: string };
+  photo: IPhoto;
   isOpen: boolean;
-  onClose: () => void;
 }
 
-export default function ImageModal({
-  photo,
-  isOpen,
-  onClose,
-}: ImageModalProps) {
+export default function ImageModal({ photo, isOpen }: ImageModalProps) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const router = useRouter();
 
   const handleFavorite = () => {
     setIsFavorite(!isFavorite);
@@ -43,13 +41,17 @@ export default function ImageModal({
     onClose();
   };
 
+  const onClose = () => {
+    router.back();
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogHeader hidden>
         <DialogTitle hidden></DialogTitle>
       </DialogHeader>
       <DialogContent className="m-0 h-screen max-h-[100vh] w-screen max-w-[100vw] p-0">
-        <div className="absolute left-0 right-0 top-0 z-10 flex items-center justify-between bg-opacity-50 p-4">
+        <div className="absolute left-0 right-0 top-0 z-10 flex items-center justify-between p-4">
           <Button
             variant="ghost"
             size="icon"
@@ -98,7 +100,7 @@ export default function ImageModal({
         <div className="flex h-full flex-col bg-black">
           <div className="relative flex flex-grow items-center justify-center">
             <Image
-              src={photo.url || "/placeholder.svg"}
+              src={photo.url ?? "/placeholder.svg"}
               alt={`Photo ${photo.id}`}
               layout="fill"
               objectFit="contain"

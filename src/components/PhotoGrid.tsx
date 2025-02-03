@@ -1,22 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
-import type { IPhotos } from "@/server/db/schema";
-import ImageModal from "@/components/ImageModal";
+import type { IPhoto } from "@/server/db/schema";
 import UploadDropzone from "@/components/UploadDropzone";
+import Link from "next/link";
 
-export default function PhotoGrid({ photos }: { photos: IPhotos[] }) {
-  const [selectedPhoto, setSelectedPhoto] = useState<IPhotos | null>(null);
-
-  const handlePhotoClick = (photo: IPhotos) => {
-    setSelectedPhoto(photo);
-  };
-
-  const handleCloseModal = () => {
-    setSelectedPhoto(null);
-  };
-
+export default function PhotoGrid({ photos }: { photos: IPhoto[] }) {
   if (photos.length === 0) {
     return (
       <UploadDropzone
@@ -32,10 +21,10 @@ export default function PhotoGrid({ photos }: { photos: IPhotos[] }) {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {photos
           ? photos.map((photo) => (
-              <div
+              <Link
+                href={`/photos/${photo.id}`}
                 key={photo.id}
                 className="relative aspect-square cursor-pointer overflow-hidden rounded-lg shadow-md"
-                onClick={() => handlePhotoClick(photo)}
               >
                 <Image
                   src={photo.url ?? ""}
@@ -43,17 +32,10 @@ export default function PhotoGrid({ photos }: { photos: IPhotos[] }) {
                   layout="fill"
                   objectFit="cover"
                 />
-              </div>
+              </Link>
             ))
           : null}
       </div>
-      {selectedPhoto && (
-        <ImageModal
-          photo={{ id: selectedPhoto.id, url: selectedPhoto.url! }}
-          isOpen={!!selectedPhoto}
-          onClose={handleCloseModal}
-        />
-      )}
     </>
   );
 }
