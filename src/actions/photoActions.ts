@@ -31,24 +31,11 @@ export const getPhotoById = async (id: string) => {
   return data[0];
 };
 
-// export const toggleTodo = async (id: number) => {
-//   await db
-//     .update(todo)
-//     .set({
-//       done: not(todo.done),
-//     })
-//     .where(eq(todo.id, id));
+export const toggleFavourite = async (id: string, favourite: boolean) => {
+  await db
+    .update(photosSchema)
+    .set({ favourite })
+    .where(eq(photosSchema.id, id));
 
-//   revalidatePath("/");
-// };
-
-// export const editTodo = async (id: number, text: string) => {
-//   await db
-//     .update(todo)
-//     .set({
-//       text: text,
-//     })
-//     .where(eq(todo.id, id));
-
-//   revalidatePath("/");
-// };
+  revalidatePath("/photos");
+};

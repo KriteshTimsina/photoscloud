@@ -22,7 +22,7 @@ export default function ImageModal({
   photo: IPhoto;
   isOpen: boolean;
 }) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(photo.favourite);
   const router = useRouter();
 
   const handleFavorite = () => setIsFavorite(!isFavorite);

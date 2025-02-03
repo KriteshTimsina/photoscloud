@@ -9,6 +9,12 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 
 type ConfirmationDialogProps = {
@@ -19,8 +25,8 @@ type ConfirmationDialogProps = {
   confirmText?: string;
   cancelText?: string;
   children?: React.ReactNode;
+  tooltip?: string;
 };
-
 export const ConfirmationDialog = ({
   onConfirm,
   onCancel,
@@ -29,9 +35,17 @@ export const ConfirmationDialog = ({
   confirmText = "Continue",
   cancelText = "Cancel",
   children = <Button variant="outline">Show Dialog</Button>,
+  tooltip,
 }: ConfirmationDialogProps) => (
   <AlertDialog>
-    <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
+        </TooltipTrigger>
+        {tooltip && <TooltipContent>{tooltip}</TooltipContent>}
+      </Tooltip>
+    </TooltipProvider>
     <AlertDialogContent>
       <AlertDialogHeader>
         <AlertDialogTitle>{title}</AlertDialogTitle>
