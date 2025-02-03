@@ -10,10 +10,18 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import PhotoUpload from "./PhotoUpload";
-import { Plus, Upload } from "lucide-react";
+import { Upload } from "lucide-react";
+import { uploadPhotos } from "@/actions/photoActions";
 
 export default function AddPhotoButton() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handlePhotoUpload = async () => {
+    try {
+      await uploadPhotos();
+      setIsOpen(false);
+    } catch (error) {}
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -26,7 +34,7 @@ export default function AddPhotoButton() {
         <DialogHeader>
           <DialogTitle>Upload Photo</DialogTitle>
         </DialogHeader>
-        <PhotoUpload onUploadComplete={() => setIsOpen(false)} />
+        <PhotoUpload onUploadComplete={handlePhotoUpload} />
       </DialogContent>
     </Dialog>
   );

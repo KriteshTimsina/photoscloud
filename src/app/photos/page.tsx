@@ -1,8 +1,11 @@
 import { Suspense } from "react";
 import PhotoGrid from "@/components/PhotoGrid";
 import AddPhotoButton from "@/components/AddPhotoButton";
+import { getPhotos } from "@/actions/photoActions";
 
-export default function Photos() {
+export default async function Photos() {
+  const photos = await getPhotos();
+  console.log(photos, "YAYYYYY");
   return (
     <div className="container mx-auto p-4">
       <div className="flex items-center justify-between">
@@ -10,7 +13,7 @@ export default function Photos() {
         <AddPhotoButton />
       </div>
       <Suspense fallback={<div>Loading photos...</div>}>
-        <PhotoGrid />
+        <PhotoGrid photos={photos} />
       </Suspense>
     </div>
   );

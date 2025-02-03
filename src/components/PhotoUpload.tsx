@@ -3,7 +3,7 @@
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
-import { usePhotoUpload } from "@/context/PhotosContext";
+import { uploadPhotos } from "@/actions/photoActions";
 
 interface PhotoUploadProps {
   onUploadComplete: () => void;
@@ -11,17 +11,13 @@ interface PhotoUploadProps {
 
 export default function PhotoUpload({ onUploadComplete }: PhotoUploadProps) {
   const [uploading, setUploading] = useState(false);
-  const { onUpload } = usePhotoUpload();
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
-      console.log(acceptedFiles, "ACCEPTED");
-      // Handle file upload here
       setUploading(true);
-      // Simulating upload process
       setTimeout(() => {
         setUploading(false);
-        onUpload(acceptedFiles);
+
         onUploadComplete();
       }, 2000);
     },
