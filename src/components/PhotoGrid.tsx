@@ -22,6 +22,7 @@ export default function PhotoGrid({ photos }: { photos: IPhoto[] }) {
         {photos
           ? photos.map((photo) => (
               <Link
+                prefetch
                 href={`/photos/${photo.id}`}
                 key={photo.id}
                 className="relative aspect-square cursor-pointer overflow-hidden rounded-lg shadow-md"

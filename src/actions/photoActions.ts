@@ -1,11 +1,15 @@
 "use server";
 import { db } from "@/server/db";
 import { photosSchema } from "@/server/db/schema";
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 export const getPhotos = async () => {
-  const data = await db.select().from(photosSchema);
+  const data = await db
+    .select()
+    .from(photosSchema)
+    .orderBy(asc(photosSchema.createdAt));
+
   return data;
 };
 
