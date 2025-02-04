@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import { Camera } from "lucide-react";
-
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import images from "@/assets/images";
 
 const Header = () => {
   return (
@@ -10,10 +10,8 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="my-4 flex items-center justify-between rounded-full bg-white/10 px-6 py-3 backdrop-blur-md">
           <Link href="/" className="flex items-center space-x-2">
-            <div className="rounded-full bg-white/20 p-2">
-              <Camera className="h-6 w-6 text-blue-300" />
-            </div>
-            <span className="text-xl font-bold text-white">Photo Store</span>
+            <Image height={40} src={images.logo} alt="Photo Cloud" />
+            <span className="text-xl font-bold text-white">Photo Cloud</span>
           </Link>
           <nav>
             <ul className="hidden space-x-6 text-gray-300 md:flex">

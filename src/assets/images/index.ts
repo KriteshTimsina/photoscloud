@@ -1,7 +1,7 @@
-import container from "@/assets/images/Container.png";
-import flyer from "@/assets/images/flyer-portrait.jpg";
+import logo from "@/assets/images/logo.png";
 
-export const images = {
-  container,
-  flyer,
+const images = {
+  logo,
 };
+
+export default images;
