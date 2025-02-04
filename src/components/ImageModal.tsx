@@ -11,9 +11,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { ImageNavigationButtons } from "@/components/ImageNavigationButtons";
-
 import { deletePhoto, toggleFavourite } from "@/actions/photoActions";
 import type { IPhoto } from "@/server/db/schema";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function ImageModal({
   photo,
@@ -67,6 +68,12 @@ export default function ImageModal({
         />
         <div className="flex h-full flex-col bg-black">
           <div className="relative flex flex-grow items-center justify-center">
+            <Button
+              variant="unstyled"
+              className="group absolute bottom-0 left-5 top-0 z-10 h-full w-1/3 items-center justify-start"
+            >
+              <ChevronLeft className="hidden h-24 w-24 text-white opacity-0 transition-opacity group-hover:block group-hover:opacity-100" />
+            </Button>
             <Image
               src={photo.url ?? "/placeholder.svg"}
               alt={`Photo ${photo.id}`}
@@ -74,6 +81,12 @@ export default function ImageModal({
               objectFit="contain"
               className="select-none"
             />
+            <Button
+              variant="unstyled"
+              className="group absolute bottom-0 right-5 top-0 h-full w-1/3 items-center justify-end"
+            >
+              <ChevronRight className="hidden h-24 w-24 text-white opacity-0 transition-opacity group-hover:block group-hover:opacity-100" />
+            </Button>
           </div>
         </div>
       </DialogContent>

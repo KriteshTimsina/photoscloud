@@ -23,8 +23,9 @@ export const ImageNavigationButtons = ({
   onDetails: () => void;
   onDeleteTrigger: () => void;
 }) => (
-  <div className="absolute left-0 right-0 top-0 z-10 flex items-center justify-between p-4">
+  <div className="absolute left-0 right-0 top-0 z-20 flex items-center justify-between p-4">
     <Button
+      tooltip="Close"
       variant="ghost"
       size="icon"
       onClick={onClose}
@@ -33,26 +34,18 @@ export const ImageNavigationButtons = ({
       <ArrowLeft className="h-6 w-6" />
     </Button>
     <div className="flex space-x-2">
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              className="hover:bg-transparent"
-              size="icon"
-              onClick={onFavorite}
-            >
-              <Heart
-                stroke={isFavorite ? "red" : "white"}
-                className={`h-6 w-6 ${isFavorite ? "fill-red-500" : ""}`}
-              />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Favourite</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <Button
+        tooltip="Favourite"
+        variant="ghost"
+        className="hover:bg-transparent"
+        size="icon"
+        onClick={onFavorite}
+      >
+        <Heart
+          stroke={isFavorite ? "red" : "white"}
+          className={`h-6 w-6 ${isFavorite ? "fill-red-500" : ""}`}
+        />
+      </Button>
 
       <Button
         variant="ghost"
