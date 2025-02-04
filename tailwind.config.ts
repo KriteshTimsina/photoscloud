@@ -76,6 +76,7 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "rotate-slow": "rotate-slow 20s linear infinite",
+        float: "float 10s ease-in-out infinite",
       },
     },
   },

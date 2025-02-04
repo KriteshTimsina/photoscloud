@@ -11,7 +11,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <Header />
-        <main className="relative z-10 pt-24">{children}</main>
+        <main className="relative z-10">{children}</main>
       </body>
     </html>
   );
