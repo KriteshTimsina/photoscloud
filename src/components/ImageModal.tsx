@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { startTransition, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { ImageNavigationButtons } from "@/components/ImageNavigationButtons";
 
-import { deletePhoto } from "@/actions/photoActions";
+import { deletePhoto, toggleFavourite } from "@/actions/photoActions";
 import type { IPhoto } from "@/server/db/schema";
 
 export default function ImageModal({
@@ -25,7 +25,19 @@ export default function ImageModal({
   const [isFavorite, setIsFavorite] = useState(photo.favourite);
   const router = useRouter();
 
-  const handleFavorite = () => setIsFavorite(!isFavorite);
+  const handleFavorite = async () => {
+    setIsFavorite((prev) => !prev);
+
+    try {
+      startTransition(async () => {
+        await toggleFavourite(photo.id, !isFavorite);
+        router.refresh();
+      });
+    } catch (error) {
+      console.log(error, "Failed to toggle favorite");
+      setIsFavorite((prev) => !prev);
+    }
+  };
   const handleZoom = () => {
     /* TODO: Implement zoom functionality */
   };
