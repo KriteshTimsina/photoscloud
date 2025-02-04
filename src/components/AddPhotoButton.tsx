@@ -20,7 +20,9 @@ export default function AddPhotoButton() {
     try {
       await uploadPhotos();
       setIsOpen(false);
-    } catch (error) {}
+    } catch (error) {
+      console.log("Error uploading photo", error);
+    }
   };
 
   return (

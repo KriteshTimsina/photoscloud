@@ -1,6 +1,43 @@
 import type React from "react";
 import "@/styles/globals.css";
 import Header from "@/components/header";
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Photos Cloud - Secure Your Memories, Anytime, Anywhere",
+  description:
+    "Photos Cloud is your secure and seamless cloud storage for photos and videos. Upload, organize, and access your memories from any device, anywhere.",
+  keywords: [
+    "Photos Cloud",
+    "Photo Storage",
+    "Secure Cloud Storage",
+    "Photo Backup",
+    "Video Storage",
+    "Cloud Storage Solutions",
+  ],
+  openGraph: {
+    title: "Photos Cloud - Secure Your Memories",
+    description:
+      "Store, organize, and access your precious memories on Photos Cloud with secure cloud storage, anytime, anywhere.",
+    type: "website",
+    url: "https://photoscloud.vercel.app",
+    images: [
+      {
+        url: "https://photoscloud.vercel.app/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Photos Cloud ",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Photos Cloud - Secure Your Memories",
+    description:
+      "Photos Cloud offers a secure and convenient solution for storing and organizing your photos and videos.",
+    images: ["https://photoscloud.vercel.app/og-image.png"],
+  },
+};
 
 export default function RootLayout({
   children,

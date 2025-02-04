@@ -1,12 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Heart, Info, Trash2, ZoomIn } from "lucide-react";
 import { ConfirmationDialog } from "@/components/ConfirmationDialog";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 export const ImageNavigationButtons = ({
   isFavorite,
