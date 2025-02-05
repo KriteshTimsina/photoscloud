@@ -3,12 +3,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import images from "@/assets/images";
-import { auth, signIn, signOut } from "@/auth";
+import { auth, signIn } from "@/auth";
 
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { NavUser } from "@/components/nav-user";
+import { type DefaultSession } from "next-auth";
 
 const Header = async () => {
-  const data = await auth();
+  const { user } = (await auth()) as DefaultSession;
+
   return (
     <header className="fixed left-0 top-0 z-50 w-full">
       <div className="container mx-auto px-4">
@@ -45,20 +48,8 @@ const Header = async () => {
               </li>
             </ul>
           </nav>
-          {data?.user ? (
-            <div className="flex items-center gap-5">
-              <p className="text-white">{data?.user?.name}</p>
-              <form
-                action={async () => {
-                  "use server";
-                  await signOut({ redirectTo: "/" });
-                }}
-              >
-                <Button className="transform bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/50 transition-all duration-300 hover:scale-105 hover:from-blue-600 hover:to-purple-700 hover:shadow-xl hover:shadow-purple-600/50">
-                  Logout
-                </Button>
-              </form>
-            </div>
+          {user ? (
+            <NavUser user={user} />
           ) : (
             <form
               action={async () => {
