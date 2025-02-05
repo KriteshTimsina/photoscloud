@@ -1,23 +1,17 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import GithubButton from "@/components/GithubButton";
+import { floatingImages } from "@/assets/images";
 
 export default function Home() {
-  const photos = [
-    "https://images.unsplash.com/photo-1738316849598-8cbe1e5ca3f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0fHx8ZW58MHx8fHx8",
-    "https://images.unsplash.com/photo-1738316849598-8cbe1e5ca3f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0fHx8ZW58MHx8fHx8",
-    "https://images.unsplash.com/photo-1738316849598-8cbe1e5ca3f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0fHx8ZW58MHx8fHx8",
-    "https://images.unsplash.com/photo-1738316849598-8cbe1e5ca3f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0fHx8ZW58MHx8fHx8",
-    "https://images.unsplash.com/photo-1738316849598-8cbe1e5ca3f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0fHx8ZW58MHx8fHx8",
-  ];
-
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-b from-black to-gray-900">
       <div className="absolute inset-0 z-0">
-        {photos.map((photo, index) => (
+        {floatingImages.map((photo, index) => (
           <div
             key={index}
-            className="animate-float absolute"
+            className="absolute animate-float"
             style={{
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
@@ -27,8 +21,8 @@ export default function Home() {
             <Image
               src={photo || "/placeholder.svg"}
               alt={`Floating photo ${index + 1}`}
-              width={200}
-              height={150}
+              width={250}
+              height={170}
               className="rounded-lg opacity-30 shadow-lg transition-opacity duration-300 hover:opacity-80"
             />
           </div>
@@ -50,6 +44,8 @@ export default function Home() {
           </Button>
         </Link>
       </div>
+
+      <GithubButton repo="kriteshtimsina/photoscloud" />
     </main>
   );
 }

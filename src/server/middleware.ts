@@ -10,8 +10,6 @@ import { NextResponse } from "next/server";
 
 const { auth } = NextAuth(authConfig);
 
-console.log("MIDDLEWAR RUN");
-
 export default auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;

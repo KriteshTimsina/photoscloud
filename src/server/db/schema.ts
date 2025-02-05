@@ -2,7 +2,6 @@ import { sql } from "drizzle-orm";
 import {
   timestamp,
   varchar,
-  uuid,
   boolean,
   text,
   integer,

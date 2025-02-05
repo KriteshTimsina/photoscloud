@@ -1,30 +1,23 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import images from "@/assets/images";
 import { auth, signIn } from "@/server/auth";
-
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import Image from "next/image";
 import { NavUser } from "@/components/nav-user";
-import { redirect } from "next/navigation";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { images } from "@/assets/images";
 
 const Header = async () => {
   const session = await auth();
-
   const user = session?.user;
-
-  // if (!user) {
-  //   redirect("/api/auth/signin");
-  // }
 
   return (
     <header className="fixed left-0 top-0 z-50 w-full">
       <div className="container mx-auto px-4">
         <div className="my-4 flex items-center justify-between rounded-full bg-white/10 px-6 py-3 backdrop-blur-md">
           <Link href="/" className="flex items-center space-x-2">
-            <Image height={40} src={images.logo} alt="Photo Cloud" />
-            <span className="text-xl font-bold text-white">Photo Cloud</span>
+            <Image height={40} src={images.logo} alt="Photos Cloud" />
+            <span className="text-xl font-bold text-white">Photos Cloud</span>
           </Link>
           <nav>
             <ul className="hidden space-x-6 text-gray-300 md:flex">
@@ -38,18 +31,11 @@ const Header = async () => {
               </li>
               <li>
                 <Link
-                  href="/pricing"
+                  target="_blank"
+                  href="https://kriteshtimsina.com.np"
                   className="transition-colors hover:text-white"
                 >
-                  Pricing
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="transition-colors hover:text-white"
-                >
-                  Contact
+                  Developer
                 </Link>
               </li>
             </ul>

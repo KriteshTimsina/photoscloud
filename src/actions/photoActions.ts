@@ -43,7 +43,7 @@ export const deletePhoto = async (id: string) => {
 
   const userId = session?.user?.id;
   if (!userId) {
-    return { error: "Unauthorized" };
+    redirect("/api/auth/signin");
   }
   await db
     .delete(photosSchema)
@@ -57,7 +57,7 @@ export const getPhotoById = async (id: string) => {
 
   const userId = session?.user?.id;
   if (!userId) {
-    return { error: "Unauthorized" };
+    redirect("/api/auth/signin");
   }
 
   const [data] = await db

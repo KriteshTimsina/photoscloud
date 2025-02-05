@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { ImageNavigationButtons } from "@/components/ImageNavigationButtons";
 import { deletePhoto, toggleFavourite } from "@/actions/photoActions";
-import type { IPhoto } from "@/server/db/schema";
+import { type IPhoto } from "@/server/db/schema";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
