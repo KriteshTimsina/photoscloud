@@ -1,11 +1,11 @@
 {
-  "id": "65c1906c-ab7c-4731-aada-fb4540b6762d",
+  "id": "64f8b3bf-01ab-46c2-a6d9-7371bbc549cb",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.photos_store_account": {
-      "name": "photos_store_account",
+    "public.account": {
+      "name": "account",
       "schema": "",
       "columns": {
         "userId": {
@@ -77,10 +77,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "photos_store_account_userId_photos_store_user_id_fk": {
-          "name": "photos_store_account_userId_photos_store_user_id_fk",
-          "tableFrom": "photos_store_account",
-          "tableTo": "photos_store_user",
+        "account_userId_user_id_fk": {
+          "name": "account_userId_user_id_fk",
+          "tableFrom": "account",
+          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
@@ -92,8 +92,8 @@
         }
       },
       "compositePrimaryKeys": {
-        "photos_store_account_provider_providerAccountId_pk": {
-          "name": "photos_store_account_provider_providerAccountId_pk",
+        "account_provider_providerAccountId_pk": {
+          "name": "account_provider_providerAccountId_pk",
           "columns": [
             "provider",
             "providerAccountId"
@@ -102,8 +102,8 @@
       },
       "uniqueConstraints": {}
     },
-    "public.photos_store_photo": {
-      "name": "photos_store_photo",
+    "public.photo": {
+      "name": "photo",
       "schema": "",
       "columns": {
         "id": {
@@ -145,8 +145,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.photos_store_user": {
-      "name": "photos_store_user",
+    "public.user": {
+      "name": "user",
       "schema": "",
       "columns": {
         "id": {
@@ -165,7 +165,7 @@
           "name": "email",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "emailVerified": {
           "name": "emailVerified",
@@ -183,15 +183,7 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "photos_store_user_email_unique": {
-          "name": "photos_store_user_email_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
-        }
-      }
+      "uniqueConstraints": {}
     }
   },
   "enums": {},

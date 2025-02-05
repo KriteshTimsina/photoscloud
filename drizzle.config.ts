@@ -8,5 +8,5 @@ export default {
   dbCredentials: {
     url: env.DATABASE_URL,
   },
-  tablesFilter: ["photos_store_*"],
+  // tablesFilter: ["photos_cloud_*"],
 } satisfies Config;
