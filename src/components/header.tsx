@@ -3,14 +3,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import images from "@/assets/images";
-import { auth, signIn } from "@/auth";
+import { auth, signIn } from "@/server/auth";
 
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { NavUser } from "@/components/nav-user";
-import { type DefaultSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 const Header = async () => {
-  const { user } = (await auth()) as DefaultSession;
+  const session = await auth();
+
+  const user = session?.user;
+
+  // if (!user) {
+  //   redirect("/api/auth/signin");
+  // }
 
   return (
     <header className="fixed left-0 top-0 z-50 w-full">
@@ -48,9 +54,8 @@ const Header = async () => {
               </li>
             </ul>
           </nav>
-          {user ? (
-            <NavUser user={user} />
-          ) : (
+          {user && <NavUser user={user} />}
+          {!user && (
             <form
               action={async () => {
                 "use server";

@@ -1,61 +1,83 @@
 "use server";
-import { auth } from "@/auth";
+import { auth } from "@/server/auth";
 import { db } from "@/server/db";
 import { photosSchema } from "@/server/db/schema";
-import { asc, eq } from "drizzle-orm";
-import { type DefaultSession } from "next-auth";
+import { and, asc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export const getPhotos = async () => {
-  const { user } = (await auth()) as DefaultSession;
+  const session = await auth();
 
-  if (!user) {
-    throw new Error("Unauthorized.");
+  const userId = session?.user?.id;
+  if (!userId) {
+    redirect("/api/auth/signin");
   }
   const data = await db
     .select()
     .from(photosSchema)
     .orderBy(asc(photosSchema.createdAt))
-    .where(eq(photosSchema.userId, user.id!));
+    .where(eq(photosSchema.userId, userId));
 
   return data;
 };
 
 export const uploadPhotos = async () => {
-  const session = await auth(); // Get the current user session
-  if (!session || !session.user) {
-    throw new Error("User not authenticated");
-  }
+  const session = await auth();
 
-  const userId = session.user.id;
+  const userId = session?.user?.id;
+  if (!userId) {
+    return { error: "Unauthorized" };
+  }
 
   await db.insert(photosSchema).values({
     url: "https://images.unsplash.com/photo-1735325332407-73571ee7477b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8",
-    userId, // Attach userId here
+    userId,
   });
 
   revalidatePath("/photos");
 };
 
 export const deletePhoto = async (id: string) => {
-  await db.delete(photosSchema).where(eq(photosSchema.id, id));
+  const session = await auth();
+
+  const userId = session?.user?.id;
+  if (!userId) {
+    return { error: "Unauthorized" };
+  }
+  await db
+    .delete(photosSchema)
+    .where(and(eq(photosSchema.id, id), eq(photosSchema.userId, userId)));
 
   revalidatePath("/photos");
 };
 
 export const getPhotoById = async (id: string) => {
-  const data = await db
+  const session = await auth();
+
+  const userId = session?.user?.id;
+  if (!userId) {
+    return { error: "Unauthorized" };
+  }
+
+  const [data] = await db
     .select()
     .from(photosSchema)
-    .where(eq(photosSchema.id, id));
-  return data[0];
+    .where(and(eq(photosSchema.id, id), eq(photosSchema.userId, userId)));
+  return data;
 };
 
 export const toggleFavourite = async (id: string, favourite: boolean) => {
+  const session = await auth();
+
+  const userId = session?.user?.id;
+  if (!userId) {
+    return { error: "Unauthorized" };
+  }
   await db
     .update(photosSchema)
     .set({ favourite })
-    .where(eq(photosSchema.id, id));
+    .where(and(eq(photosSchema.id, id), eq(photosSchema.userId, userId)));
 
   revalidatePath("/photos");
 };

@@ -16,7 +16,7 @@ import type { AdapterAccountType } from "next-auth/adapters";
 export const photosSchema = pgTable("photo", {
   id: text("id")
     .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
+    .$defaultFn(() => sql`gen_random_uuid()`),
   url: varchar("url", { length: 256 }),
   favourite: boolean("favorite").default(false).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true })
@@ -33,7 +33,7 @@ export const photosSchema = pgTable("photo", {
 export const userSchema = pgTable("user", {
   id: text("id")
     .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
+    .$defaultFn(() => sql`gen_random_uuid()`),
   name: text("name"),
   email: text("email").notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),

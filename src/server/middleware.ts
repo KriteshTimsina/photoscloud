@@ -1,4 +1,4 @@
-import authConfig from "@/auth.config";
+import authConfig from "@/server/auth.config";
 import NextAuth from "next-auth";
 import {
   publicRoutes,
@@ -9,6 +9,8 @@ import {
 import { NextResponse } from "next/server";
 
 const { auth } = NextAuth(authConfig);
+
+console.log("MIDDLEWAR RUN");
 
 export default auth((req) => {
   const { nextUrl } = req;
