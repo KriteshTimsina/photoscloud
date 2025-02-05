@@ -14,7 +14,9 @@ import type { AdapterAccountType } from "next-auth/adapters";
 // export const pgTable = pgTableCreator((name) => `photos_cloud_${name}`);
 
 export const photosSchema = pgTable("photo", {
-  id: uuid("id").primaryKey().defaultRandom(),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
   url: varchar("url", { length: 256 }),
   favourite: boolean("favorite").default(false).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true })
@@ -23,8 +25,12 @@ export const photosSchema = pgTable("photo", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
     () => new Date(),
   ),
+  userId: text("userId")
+    .notNull()
+    .references(() => userSchema.id, { onDelete: "cascade" }),
 });
-export const users = pgTable("user", {
+
+export const userSchema = pgTable("user", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
@@ -34,12 +40,12 @@ export const users = pgTable("user", {
   image: text("image"),
 });
 
-export const accounts = pgTable(
+export const accountSchema = pgTable(
   "account",
   {
     userId: text("userId")
       .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+      .references(() => userSchema.id, { onDelete: "cascade" }),
     type: text("type").$type<AdapterAccountType>().notNull(),
     provider: text("provider").notNull(),
     providerAccountId: text("providerAccountId").notNull(),
