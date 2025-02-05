@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS "photos_store_account" (
+CREATE TABLE IF NOT EXISTS "account" (
 	"userId" text NOT NULL,
 	"type" text NOT NULL,
 	"provider" text NOT NULL,
@@ -10,10 +10,10 @@ CREATE TABLE IF NOT EXISTS "photos_store_account" (
 	"scope" text,
 	"id_token" text,
 	"session_state" text,
-	CONSTRAINT "photos_store_account_provider_providerAccountId_pk" PRIMARY KEY("provider","providerAccountId")
+	CONSTRAINT "account_provider_providerAccountId_pk" PRIMARY KEY("provider","providerAccountId")
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "photos_store_photo" (
+CREATE TABLE IF NOT EXISTS "photo" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"url" varchar(256),
 	"favorite" boolean DEFAULT false NOT NULL,
@@ -21,17 +21,16 @@ CREATE TABLE IF NOT EXISTS "photos_store_photo" (
 	"updated_at" timestamp with time zone
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "photos_store_user" (
+CREATE TABLE IF NOT EXISTS "user" (
 	"id" text PRIMARY KEY NOT NULL,
 	"name" text,
-	"email" text,
+	"email" text NOT NULL,
 	"emailVerified" timestamp,
-	"image" text,
-	CONSTRAINT "photos_store_user_email_unique" UNIQUE("email")
+	"image" text
 );
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "photos_store_account" ADD CONSTRAINT "photos_store_account_userId_photos_store_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."photos_store_user"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "account" ADD CONSTRAINT "account_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

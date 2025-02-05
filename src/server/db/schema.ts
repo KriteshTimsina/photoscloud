@@ -1,6 +1,5 @@
 import { sql } from "drizzle-orm";
 import {
-  pgTableCreator,
   timestamp,
   varchar,
   uuid,
@@ -8,12 +7,13 @@ import {
   text,
   integer,
   primaryKey,
+  pgTable,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
 
-export const createTable = pgTableCreator((name) => `photos_store_${name}`);
+// export const pgTable = pgTableCreator((name) => `photos_cloud_${name}`);
 
-export const photosSchema = createTable("photo", {
+export const photosSchema = pgTable("photo", {
   id: uuid("id").primaryKey().defaultRandom(),
   url: varchar("url", { length: 256 }),
   favourite: boolean("favorite").default(false).notNull(),
@@ -24,18 +24,17 @@ export const photosSchema = createTable("photo", {
     () => new Date(),
   ),
 });
-
-export const users = createTable("user", {
+export const users = pgTable("user", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   name: text("name"),
-  email: text("email").unique(),
+  email: text("email").notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
 });
 
-export const accounts = createTable(
+export const accounts = pgTable(
   "account",
   {
     userId: text("userId")
