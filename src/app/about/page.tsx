@@ -28,11 +28,11 @@ export default function About() {
         <h1 className="mb-8 text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl">
           About{" "}
           <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-            PhotoCloud
+            Photos Cloud
           </span>
         </h1>
         <p className="mb-12 text-xl text-gray-300">
-          PhotoCloud is your secure, easy-to-use solution for storing and
+          Photos Cloud is your secure, easy-to-use solution for storing and
           sharing your precious memories.
         </p>
         <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2">

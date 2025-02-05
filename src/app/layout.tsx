@@ -1,5 +1,5 @@
 import type React from "react";
-import "@/styles/globals.css";
+import "@/globals.css";
 import Header from "@/components/header";
 import { type Metadata } from "next";
 
