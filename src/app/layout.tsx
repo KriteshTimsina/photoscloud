@@ -2,6 +2,7 @@ import type React from "react";
 import "@/styles/globals.css";
 import Header from "@/components/header";
 import { type Metadata } from "next";
+import SessionProvider from "@/components/session-provider";
 
 export const metadata: Metadata = {
   title: "Photos Cloud - Secure Your Memories, Anytime, Anywhere",
@@ -47,8 +48,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-        <Header />
-        <main className="relative z-10">{children}</main>
+        <SessionProvider>
+          <Header />
+
+          <main className="relative z-10">{children}</main>
+        </SessionProvider>
       </body>
     </html>
   );
