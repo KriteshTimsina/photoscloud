@@ -16,7 +16,10 @@ export const photosSchema = pgTable("photo", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => sql`gen_random_uuid()`),
-  url: varchar("url", { length: 256 }),
+  url: varchar("url", { length: 256 }).notNull(),
+  name: text("name").notNull(),
+  size: integer("size").notNull(),
+  type: text("type").notNull(),
   favourite: boolean("favorite").default(false).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`)
