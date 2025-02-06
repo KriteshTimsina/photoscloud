@@ -9,5 +9,5 @@ export default async function ViewPhoto({
   const id = (await params).id;
   const photo = await getPhotoById(id);
 
-  return <ImageModal photo={photo!} isOpen={photo !== null} />;
+  return <ImageModal photo={photo!} />;
 }
