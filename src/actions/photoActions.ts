@@ -32,19 +32,13 @@ export const uploadPhotos = async (photo: {
   size: number;
   type: string;
 }) => {
-  console.log(photo, "PAYLOAD");
-  const data = await db
-    .insert(photosSchema)
-    .values({
-      url: photo.url,
-      userId: photo.userId,
-      name: photo.name,
-      type: photo.type,
-      size: photo.size,
-    })
-    .catch((e) => console.log(e, "ERROR"));
-
-  console.log(data, "RES");
+  return await db.insert(photosSchema).values({
+    url: photo.url,
+    userId: photo.userId,
+    name: photo.name,
+    type: photo.type,
+    size: photo.size,
+  });
 };
 
 export const getPhotoById = async (id: string) => {
@@ -92,17 +86,9 @@ export const deletePhoto = async (id: string) => {
     return { error: "Photo not found" };
   }
 
-  const utapiResult = await utApi.deleteFiles([
-    photo.url.replace("https://utfs.io/f/", ""),
-  ]);
+  await utApi.deleteFiles([photo.url.replace("https://utfs.io/f/", "")]);
 
-  console.log(utapiResult);
-
-  const dbDeleteResult = await db
-    .delete(photosSchema)
-    .where(eq(photosSchema.id, id));
-
-  console.log(dbDeleteResult);
+  await db.delete(photosSchema).where(eq(photosSchema.id, id));
 
   const c = await cookies();
 

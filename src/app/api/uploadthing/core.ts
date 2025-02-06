@@ -22,7 +22,6 @@ export const ourFileRouter = {
     .middleware(async () => {
       // This code runs on your server before upload
       const session = await auth();
-      console.log(session, "YA CHI AYO???");
 
       const userId = session?.user?.id;
 
