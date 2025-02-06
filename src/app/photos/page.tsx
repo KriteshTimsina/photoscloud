@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import PhotoGrid from "@/components/PhotoGrid";
 import { getPhotos } from "@/actions/photoActions";
-import { UploadButton } from "@/components/uploadthing";
+import AddPhotoButton from "@/components/AddPhotoButton";
 
 export default async function Photos() {
   const photos = await getPhotos();
@@ -10,8 +10,7 @@ export default async function Photos() {
     <div className="container mx-auto p-4">
       <div className="flex items-center justify-between">
         <h1 className="mb-4 text-2xl font-bold text-white">Your Photos</h1>
-        {/* <AddPhotoButton /> */}
-        <UploadButton endpoint="imageUploader" />
+        <AddPhotoButton />
       </div>
       <Suspense fallback={<div>Loading photos...</div>}>
         <PhotoGrid photos={photos} />
