@@ -2,18 +2,12 @@
 
 import Image from "next/image";
 import type { IPhoto } from "@/server/db/schema";
-import UploadDropzone from "@/components/UploadDropzone";
+import { UploadDropzone } from "@/components/uploadthing";
 import Link from "next/link";
 
 export default function PhotoGrid({ photos }: { photos: IPhoto[] }) {
   if (photos.length === 0) {
-    return (
-      <UploadDropzone
-        onUpload={() => {
-          console.log("UPloaded");
-        }}
-      />
-    );
+    return <UploadDropzone endpoint="imageUploader" />;
   }
 
   return (
@@ -28,8 +22,8 @@ export default function PhotoGrid({ photos }: { photos: IPhoto[] }) {
                 className="relative aspect-square cursor-pointer overflow-hidden rounded-lg shadow-md"
               >
                 <Image
-                  src={photo.url ?? ""}
-                  alt={`Photo ${photo.id}`}
+                  src={photo.url}
+                  alt={photo.name}
                   layout="fill"
                   objectFit="cover"
                 />

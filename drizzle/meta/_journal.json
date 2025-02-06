@@ -8,6 +8,20 @@
       "when": 1738763550737,
       "tag": "0000_exotic_lucky_pierre",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1738848840254,
+      "tag": "0001_famous_vivisector",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1738849592297,
+      "tag": "0002_crazy_viper",
+      "breakpoints": true
     }
   ]
 }

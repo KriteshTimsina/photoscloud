@@ -16,9 +16,9 @@ const config = {
       },
       {
         protocol: "https",
-        hostname: "plus.unsplash.com",
+        hostname: "utfs.io",
         port: "",
-        pathname: "/**",
+        pathname: "/f/*",
       },
     ],
   },
