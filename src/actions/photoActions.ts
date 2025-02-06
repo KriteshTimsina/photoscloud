@@ -5,7 +5,6 @@ import { photosSchema } from "@/server/db/schema";
 import { and, asc, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { UTApi } from "uploadthing/server";
-import { cookies } from "next/headers";
 
 const utApi = new UTApi();
 
@@ -90,9 +89,5 @@ export const deletePhoto = async (id: string) => {
 
   await db.delete(photosSchema).where(eq(photosSchema.id, id));
 
-  const c = await cookies();
-
-  c.set("force-refresh", JSON.stringify(Math.random()));
-
-  return { success: true };
+  return { success: true, redirectTo: "/photos" };
 };

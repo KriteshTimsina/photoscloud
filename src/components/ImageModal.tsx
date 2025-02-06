@@ -16,14 +16,9 @@ import { type IPhoto } from "@/server/db/schema";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export default function ImageModal({
-  photo,
-  isOpen,
-}: {
-  photo: IPhoto;
-  isOpen: boolean;
-}) {
+export default function ImageModal({ photo }: { photo: IPhoto }) {
   const [isFavorite, setIsFavorite] = useState(photo.favourite);
+  const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
 
   const handleFavorite = async () => {
@@ -45,22 +40,38 @@ export default function ImageModal({
   const handleDetails = () => {
     /* TODO: Implement details functionality */
   };
-  const onClose = () => router.back();
+  const handleClose = () => {
+    setIsOpen(false);
+    router.back();
+  };
 
   const handleDelete = async () => {
-    await deletePhoto(photo.id);
-    onClose();
+    try {
+      const result = await deletePhoto(photo.id);
+      if (result.success) {
+        router.push(result.redirectTo);
+      }
+    } catch (error) {
+      console.error("Failed to delete photo", error);
+    } finally {
+      router.back();
+    }
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) handleClose();
+      }}
+    >
       <DialogHeader hidden>
         <DialogTitle hidden></DialogTitle>
       </DialogHeader>
       <DialogContent className="m-0 h-screen max-h-[100vh] w-screen max-w-[100vw] p-0">
         <ImageNavigationButtons
           isFavorite={isFavorite}
-          onClose={onClose}
+          onClose={handleClose}
           onFavorite={handleFavorite}
           onZoom={handleZoom}
           onDetails={handleDetails}
