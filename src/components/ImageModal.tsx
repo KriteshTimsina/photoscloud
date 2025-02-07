@@ -37,9 +37,7 @@ export default function ImageModal({ photo }: { photo: IPhoto }) {
   const handleZoom = () => {
     /* TODO: Implement zoom functionality */
   };
-  const handleDetails = () => {
-    /* TODO: Implement details functionality */
-  };
+
   const handleClose = () => {
     setIsOpen(false);
     router.back();
@@ -74,8 +72,8 @@ export default function ImageModal({ photo }: { photo: IPhoto }) {
           onClose={handleClose}
           onFavorite={handleFavorite}
           onZoom={handleZoom}
-          onDetails={handleDetails}
           onDeleteTrigger={handleDelete}
+          photo={photo}
         />
         <div className="flex h-full flex-col bg-black">
           <div className="relative flex flex-grow items-center justify-center">
