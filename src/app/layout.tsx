@@ -4,6 +4,7 @@ import Header from "@/components/header";
 import { type Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/server/auth";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Photos Cloud - Secure Your Memories, Anytime, Anywhere",
@@ -53,6 +54,7 @@ export default async function RootLayout({
         <body className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
           <Header />
           <main className="relative z-10">{children}</main>
+          <Toaster />
         </body>
       </html>
     </SessionProvider>

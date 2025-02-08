@@ -14,6 +14,8 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { type IPhoto } from "@/server/db/schema";
 import { useSession } from "next-auth/react";
+import { updatePhotoDescription } from "@/actions/photoActions";
+import { toast } from "sonner";
 
 type ImageInfoProps = {
   photo: IPhoto;
@@ -22,12 +24,26 @@ type ImageInfoProps = {
 const ImageInfo = ({ photo }: ImageInfoProps) => {
   const { data } = useSession();
   const user = data?.user;
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(photo.description ?? "");
 
   const handleDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     setDescription(e.target.value);
+  };
+
+  const updateDescription = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (description.trim() === "") return;
+
+    const response = await updatePhotoDescription(photo.id, description);
+    console.log(response);
+
+    if (response.error) {
+      return toast.error(response.message);
+    }
+
+    toast.success(response.message);
   };
 
   return (
@@ -46,14 +62,21 @@ const ImageInfo = ({ photo }: ImageInfoProps) => {
         <SheetHeader>
           <SheetTitle className="font-semibold text-white">Info</SheetTitle>
         </SheetHeader>
-        <div className="my-5">
+        <form className="my-5 flex flex-col items-end gap-2">
           <Textarea
             value={description}
             onChange={handleDescriptionChange}
             placeholder="Add a description"
             className="min-h-[100px] resize-none border-gray-700 bg-gray-800 text-white placeholder:text-gray-400"
           />
-        </div>
+          <Button
+            type="submit"
+            onClick={updateDescription}
+            className="bg-gradient-to-br from-blue-500 to-purple-600 text-lg text-white"
+          >
+            Save
+          </Button>
+        </form>
 
         <div className="">
           <h3 className="mb-3 text-sm font-medium text-white">Details</h3>

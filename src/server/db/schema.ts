@@ -21,6 +21,7 @@ export const photosSchema = pgTable("photo", {
   size: integer("size").notNull(),
   type: text("type").notNull(),
   favourite: boolean("favorite").default(false).notNull(),
+  description: text("description"),
   createdAt: timestamp("created_at", { withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),

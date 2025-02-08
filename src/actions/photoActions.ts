@@ -91,3 +91,42 @@ export const deletePhoto = async (id: string) => {
 
   return { success: true, redirectTo: "/photos" };
 };
+
+export const updatePhotoDescription = async (
+  id: string,
+  description: string,
+) => {
+  try {
+    const session = await auth();
+
+    const userId = session?.user?.id;
+    if (!userId) {
+      redirect("/api/auth/signin");
+    }
+
+    const [photo] = await db
+      .select()
+      .from(photosSchema)
+      .where(eq(photosSchema.id, id));
+
+    if (!photo) {
+      return { error: "Photo not found" };
+    }
+
+    await db
+      .update(photosSchema)
+      .set({ description })
+      .where(eq(photosSchema.id, id));
+
+    return {
+      status: true,
+      message: "Description updated successfully",
+    };
+  } catch (error) {
+    console.log(error, "Failed to update description");
+    return {
+      message: "Failed to update description",
+      status: false,
+    };
+  }
+};
