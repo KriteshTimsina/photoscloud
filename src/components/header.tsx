@@ -17,7 +17,9 @@ const Header = async () => {
         <div className="my-4 flex items-center justify-between rounded-full bg-white/10 px-6 py-3 backdrop-blur-md">
           <Link href="/" className="flex items-center space-x-2">
             <Image height={40} src={images.logo} alt="Photos Cloud" />
-            <span className="text-xl font-bold text-white">Photos Cloud</span>
+            <span className="text-base font-bold text-white md:text-xl">
+              Photos Cloud
+            </span>
           </Link>
           <nav>
             <ul className="hidden space-x-6 text-gray-300 md:flex">

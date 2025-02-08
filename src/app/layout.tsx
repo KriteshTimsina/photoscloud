@@ -5,6 +5,9 @@ import { type Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/server/auth";
 import { Toaster } from "@/components/ui/sonner";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "@/app/api/uploadthing/core";
 
 export const metadata: Metadata = {
   title: "Photos Cloud - Secure Your Memories, Anytime, Anywhere",
@@ -52,6 +55,7 @@ export default async function RootLayout({
     <SessionProvider session={session}>
       <html lang="en">
         <body className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+          <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
           <Header />
           <main className="relative z-10">{children}</main>
           <Toaster />
