@@ -40,7 +40,7 @@ export const uploadPhotos = async (photo: {
   });
 };
 
-export const getPhotoById = async (id: string) => {
+export const getPhoto = async (id: string) => {
   const session = await auth();
 
   const userId = session?.user?.id;
@@ -52,7 +52,13 @@ export const getPhotoById = async (id: string) => {
     .select()
     .from(photosSchema)
     .where(and(eq(photosSchema.id, id), eq(photosSchema.userId, userId)));
-  return data;
+
+  if (!data) {
+    return { error: "The photo you're looking for doesn't exist" };
+  }
+  return {
+    data,
+  };
 };
 
 export const toggleFavourite = async (id: string, favourite: boolean) => {
