@@ -32,8 +32,8 @@ Photos Cloud is a modern and intuitive platform designed to help you store, orga
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/kriteshtimsina/photos-cloud.git
-   cd photos-cloud
+   git clone https://github.com/kriteshtimsina/photoscloud.git
+   cd photoscloud
    ```
 
 2. Install dependencies:
@@ -80,5 +80,5 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Connect With Us
 
-- **GitHub:** [Photos Cloud Repo](https://github.com/kriteshtimsina/photos-cloud)
+- **GitHub:** [Photos Cloud Repo](https://github.com/kriteshtimsina/photoscloud)
 - **Email:** kriteshtimsina55@gmail.com
